@@ -27,6 +27,14 @@ public class Cliente {
 	@JoinColumn(name = "Cliente_idCliente")
 	private Set<Factura> facturas;
 	
+	public Set<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(Set<Factura> facturas) {
+		this.facturas = facturas;
+	}
+
 	public Cliente(String entregacliente, Date fhcCliente) {
 		this.entregacliente = entregacliente;
 		this.fhcCliente = fhcCliente;

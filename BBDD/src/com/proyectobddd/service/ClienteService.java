@@ -19,7 +19,7 @@ public class ClienteService {
 	public void save(Cliente cliente, List<Factura> facturas) {
 		if(facturas != null){
 			for(Factura factura : facturas){
-				cliente.getIdCliente();
+				cliente.getFacturas().add(factura);
 			}
 		}
 		clienteDao.save(cliente);

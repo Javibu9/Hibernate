@@ -24,12 +24,10 @@ public class Factura {
 	@JoinColumn(name = "Factura_idFactura")
 	private Cliente cliente;
 	
-	public Factura(int idFactura, String tipoFactura, Date fhcFactura, Cliente cliente) {
+	public Factura(String tipoFactura, Date fhcFactura) {
 		super();
-		this.idFactura = idFactura;
 		this.tipoFactura = tipoFactura;
 		this.fhcFactura = fhcFactura;
-		this.cliente = cliente;
 	}
 	
 	public Factura() {
