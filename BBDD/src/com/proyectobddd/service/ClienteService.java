@@ -25,6 +25,10 @@ public class ClienteService {
 		clienteDao.save(cliente);
 	}
 
+	public Cliente delete(int idCliente){
+		return clienteDao.findById(idCliente);
+	}
+
 	public void closeSession(){
 		clienteDao.closeSession();
 	}

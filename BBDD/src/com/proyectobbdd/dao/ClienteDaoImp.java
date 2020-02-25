@@ -102,6 +102,70 @@ public class ClienteDaoImp implements ClienteDao{
 		return cliente;
 	}
 
+	@Override
+	public Cliente delete(int idCliente) {
+		Transaction tx = null;
+		Cliente cliente = null;
+		try {
+			tx = session.beginTransaction();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
+			Root<Cliente> root = criteria.from(Cliente.class);
+			
+			criteria.where(
+					builder.lessThanOrEqualTo(root.get(Cliente_.idCliente), idCliente)
+					);
+	        
+
+			
+			cliente = session.createQuery(criteria).getSingleResult();
+			
+			tx.commit();
+		} 
+		catch (Exception e) {
+			if(tx != null){
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
+	@Override 
+	public Cliente update(int idCliente, int newIdCiente){
+		Transaction tx = null;
+		Cliente cliente = null;
+		
+		try {
+			tx = session.beginTransaction();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
+			Root<Cliente> root = criteria.from(Cliente.class);
+			
+			criteria.set("id", newIdCiente);
+			criteria.where(
+					builder.lessThanOrEqualTo(root.get(Cliente_.idCliente), idCliente)
+					);
+	        
+
+			
+			cliente = session.createQuery(criteria).getSingleResult();
+			
+			tx.commit();
+		} 
+		catch (Exception e) {
+			if(tx != null){
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+		
+		
+		return cliente;
+	}
+	
 	public void closeSession() {
 		session.close();
 		

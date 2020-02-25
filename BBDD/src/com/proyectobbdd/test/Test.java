@@ -19,6 +19,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.proyectobbdd.domain.Cliente;
+import com.proyectobbdd.domain.Cliente_;
 import com.proyectobbdd.domain.Factura;
 import com.proyectobbdd.util.HibernateUtil;
 import com.proyectobddd.service.ClienteService;
@@ -36,9 +37,9 @@ public class Test {
 	    List<Factura> facturas = new ArrayList<>();
 	    //facturas.add("Tipo", date1);
 
+	    clienteService.delete();
 		clienteService.save(new Cliente("aaa", date1), facturas);
 		clienteService.closeSession();
-		
 	}
 
 	private static Date getDate(String fecha) throws ParseException {
