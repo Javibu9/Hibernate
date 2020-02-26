@@ -37,8 +37,8 @@ public class Test {
 	    List<Factura> facturas = new ArrayList<>();
 	    //facturas.add("Tipo", date1);
 
-	    clienteService.delete();
 		clienteService.save(new Cliente("aaa", date1), facturas);
+		clienteService.delete(cliente);
 		clienteService.closeSession();
 	}
 

@@ -10,6 +10,6 @@ public interface ClienteDao {
 	public void save (Cliente cliente);
 	public List<Factura> findall(Cliente cliente);
 	public Cliente findById(int idCliente);
-	public Cliente delete(int idCliente);
-	public Cliente update(int idCliente, int newIdCliente);
+	public void delete(Cliente cliente);
+	public void update(Cliente cliente);
 }

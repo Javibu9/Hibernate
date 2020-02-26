@@ -103,23 +103,12 @@ public class ClienteDaoImp implements ClienteDao{
 	}
 
 	@Override
-	public Cliente delete(int idCliente) {
+	public void delete(Cliente cliente) {
 		Transaction tx = null;
-		Cliente cliente = null;
 		try {
 			tx = session.beginTransaction();
 			
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
-			Root<Cliente> root = criteria.from(Cliente.class);
-			
-			criteria.where(
-					builder.lessThanOrEqualTo(root.get(Cliente_.idCliente), idCliente)
-					);
-	        
-
-			
-			cliente = session.createQuery(criteria).getSingleResult();
+			session.delete(cliente);
 			
 			tx.commit();
 		} 
@@ -129,42 +118,28 @@ public class ClienteDaoImp implements ClienteDao{
 			}
 			e.printStackTrace();
 		}
-		return cliente;
+		
+	}
+
+	@Override
+	public void update(Cliente cliente) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			
+			session.saveOrUpdate(cliente);
+			
+			tx.commit();
+		} 
+		catch (Exception e) {
+			if(tx != null){
+				tx.rollback();
+			}
+			e.printStackTrace();
+		}
+		
 	}
 	
-	@Override 
-	public Cliente update(int idCliente, int newIdCiente){
-		Transaction tx = null;
-		Cliente cliente = null;
-		
-		try {
-			tx = session.beginTransaction();
-			
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
-			Root<Cliente> root = criteria.from(Cliente.class);
-			
-			criteria.set("id", newIdCiente);
-			criteria.where(
-					builder.lessThanOrEqualTo(root.get(Cliente_.idCliente), idCliente)
-					);
-	        
-
-			
-			cliente = session.createQuery(criteria).getSingleResult();
-			
-			tx.commit();
-		} 
-		catch (Exception e) {
-			if(tx != null){
-				tx.rollback();
-			}
-			e.printStackTrace();
-		}
-		
-		
-		return cliente;
-	}
 	
 	public void closeSession() {
 		session.close();
