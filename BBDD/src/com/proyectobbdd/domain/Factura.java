@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,7 @@ public class Factura {
 	private Date fhcFactura;
 	
 	@ManyToOne()
-	@JoinColumn(name = "Factura_idFactura")
+	@JoinColumn(name = "Cliente_idCliente")
 	private Cliente cliente;
 	
 	public Factura(String tipoFactura, Date fhcFactura) {
@@ -29,7 +30,7 @@ public class Factura {
 		this.tipoFactura = tipoFactura;
 		this.fhcFactura = fhcFactura;
 	}
-	
+
 	public Factura() {
 		
 	}
@@ -57,6 +58,7 @@ public class Factura {
 	public void setFhcFactura(Date fhcFactura) {
 		this.fhcFactura = fhcFactura;
 	}
+	
 
 	public Cliente getCliente() {
 		return cliente;
@@ -65,6 +67,13 @@ public class Factura {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	@Override
+	public String toString() {
+		return "Factura [idFactura=" + idFactura + ", tipoFactura=" + tipoFactura + ", fhcFactura=" + fhcFactura
+				+ ", cliente=" + cliente.getIdCliente() + "]";
+	}
+
 
 	
 

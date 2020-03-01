@@ -1,6 +1,8 @@
 package com.proyectobbdd.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,23 +22,23 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCliente;
-	private String entregacliente;
+	private String entregaCliente;
 	private Date fhcCliente;
 	
 	@OneToMany()
 	@JoinColumn(name = "Cliente_idCliente")
-	private Set<Factura> facturas;
+	private List<Factura> facturas = new ArrayList<>();
 	
-	public Set<Factura> getFacturas() {
+	public List<Factura> getFacturas() {
 		return facturas;
 	}
 
-	public void setFacturas(Set<Factura> facturas) {
+	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
 
 	public Cliente(String entregacliente, Date fhcCliente) {
-		this.entregacliente = entregacliente;
+		this.entregaCliente = entregacliente;
 		this.fhcCliente = fhcCliente;
 	}
 	
@@ -51,10 +53,10 @@ public class Cliente {
 		this.idCliente = idCliente;
 	}
 	public String getEntregacliente() {
-		return entregacliente;
+		return entregaCliente;
 	}
 	public void setEntregacliente(String entregacliente) {
-		this.entregacliente = entregacliente;
+		this.entregaCliente = entregacliente;
 	}
 	public Date getFhcCliente() {
 		return fhcCliente;
@@ -65,7 +67,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", entregacliente=" + entregacliente + ", fhcCliente=" + fhcCliente
+		return "Cliente [idCliente=" + idCliente + ", entregacliente=" + entregaCliente + ", fhcCliente=" + fhcCliente
 				+ ", facturas=" + facturas + "]";
 	}
 	

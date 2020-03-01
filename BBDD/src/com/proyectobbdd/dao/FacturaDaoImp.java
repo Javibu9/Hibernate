@@ -1,36 +1,34 @@
 package com.proyectobbdd.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.hql.ast.origin.hql.resolve.GeneratedHQLResolver.searchCondition_return;
 
 import com.proyectobbdd.domain.Cliente;
-import com.proyectobbdd.domain.Factura;
 import com.proyectobbdd.domain.Cliente_;
+import com.proyectobbdd.domain.Factura;
 import com.proyectobbdd.domain.Factura_;
 
-public class ClienteDaoImp implements ClienteDao{
+public class FacturaDaoImp implements FacturaDao{
 	
 	private Session session;
 	
-	public ClienteDaoImp(Session session) {
+	public FacturaDaoImp(Session session) {
 		this.session = session;
 	}
 
 	@Override
-	public void save(Cliente cliente) {
+	public void saveFactura(Factura factura) {
+
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			
-			session.save(cliente);
+			session.save(factura);
 			
 			tx.commit();
 		} 
@@ -41,12 +39,15 @@ public class ClienteDaoImp implements ClienteDao{
 			e.printStackTrace();
 		}
 		
+	
+		
 	}
-/*
+
 	@Override
-	public List<Factura> findall(Cliente cliente) {
+	public Factura findById(int idFactura) {
+
 		Transaction tx = null;
-		List<Factura> results = new ArrayList<>();
+		Factura factura = null;
 		try {
 			tx = session.beginTransaction();
 			
@@ -54,42 +55,11 @@ public class ClienteDaoImp implements ClienteDao{
 			CriteriaQuery<Factura> criteria = builder.createQuery(Factura.class);
 			Root<Factura> root = criteria.from(Factura.class);
 			
-			Join<Factura, Cliente> join = root.join(Factura_.cliente);
-			
 			criteria.where(
-					builder.equal(join.get(Cliente_.idCliente), cliente.getIdCliente())
+					builder.equal(root.get(Factura_.idFactura), idFactura)
 					);
 			
-			results = session.createQuery(criteria).getResultList();
-			
-			tx.commit();
-		} 
-		catch (Exception e) {
-			if(tx != null){
-				tx.rollback();
-				results = null;
-			}
-			e.printStackTrace();
-		}
-		return results;
-	}
-*/
-	@Override
-	public Cliente findById(int idCliente) {
-		Transaction tx = null;
-		Cliente cliente = null;
-		try {
-			tx = session.beginTransaction();
-			
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Cliente> criteria = builder.createQuery(Cliente.class);
-			Root<Cliente> root = criteria.from(Cliente.class);
-			
-			criteria.where(
-					builder.equal(root.get(Cliente_.idCliente), idCliente)
-					);
-			
-			cliente = session.createQuery(criteria).getSingleResult();
+			factura = session.createQuery(criteria).getSingleResult();
 			
 			tx.commit();
 		} 
@@ -99,16 +69,18 @@ public class ClienteDaoImp implements ClienteDao{
 			}
 			e.printStackTrace();
 		}
-		return cliente;
+		return factura;
+	
 	}
 
 	@Override
-	public void delete(Cliente cliente) {
+	public void deleteFactura(Factura factura) {
+
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			
-			session.delete(cliente);
+			session.delete(factura);
 			
 			tx.commit();
 		} 
@@ -122,12 +94,13 @@ public class ClienteDaoImp implements ClienteDao{
 	}
 
 	@Override
-	public void update(Cliente cliente) {
+	public void updateFactura(Factura factura) {
+
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 			
-			session.saveOrUpdate(cliente);
+			session.saveOrUpdate(factura);
 			
 			tx.commit();
 		} 
@@ -137,15 +110,12 @@ public class ClienteDaoImp implements ClienteDao{
 			}
 			e.printStackTrace();
 		}
+
 		
-	}
-	
-	
+	}		
 	public void closeSession() {
 		session.close();
 		
 	}
-
-	
 
 }
