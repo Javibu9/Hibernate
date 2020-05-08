@@ -9,6 +9,9 @@ import com.proyectobbdd.domain.Factura;
 import com.proyectobbdd.domain.Cliente;
 
 public class ClienteService {
+	
+	private int manolo = 1;
+
 	private ClienteDaoImp clienteDao;
 
 	public ClienteService(Session session) {
